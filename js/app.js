@@ -38,7 +38,6 @@ Enemy.prototype.render = function() {
 };
 Enemy.prototype.removeEnemy = function() {
     allEnemies.pop();
-    console.log(allEnemies.length);
 };
 
 
@@ -69,7 +68,6 @@ Player.prototype.render = function() {
 Player.prototype.reset = function() {
     if (!this.dead) {
         this.level++;
-        //enemy.addEnemy();
     } else {
         if (this.level !== 0)
             this.level--;

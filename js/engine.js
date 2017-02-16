@@ -115,7 +115,6 @@ var Engine = (function(global) {
             player.y = player.y - 83;
             player.reset();
             allEnemies.push(new Enemy());
-            console.log(allEnemies.length);
         }
     }
 
