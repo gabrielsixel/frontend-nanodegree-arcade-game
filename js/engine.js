@@ -46,6 +46,7 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
+
         render();
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -80,7 +81,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -95,6 +96,27 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy, index) {
+            var distanceX =  Math.round(Math.abs(player.x - enemy.x));
+            var distanceY = Math.round(Math.abs(enemy.y - player.y));
+            if (distanceY >= 1 && distanceY < 15) {
+                if( distanceX > 10 && distanceX < 40) {
+                    player.dead = true;
+                    player.reset();
+                    if(allEnemies.length !== 3)
+                        enemy.removeEnemy();
+                }
+            }
+        });
+        if(player.y <= 10) {
+            player.y = player.y - 83;
+            player.reset();
+            allEnemies.push(new Enemy());
+            console.log(allEnemies.length);
+        }
     }
 
     /* This function initially draws the "game level", it will then call
@@ -152,6 +174,7 @@ var Engine = (function(global) {
         });
 
         player.render();
+        scoreBoard.render();
     }
 
     /* This function does nothing but it could have been a good place to
